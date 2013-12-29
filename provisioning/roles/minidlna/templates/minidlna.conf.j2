@@ -1,0 +1,35 @@
+port={{ minidlna_web_port }}
+network_interface={{ minidlna_network_interface }}
+
+{% for dir in minidlna_media %}
+media_dir={{ dir }}
+{% endfor %}
+
+friendly_name={{ minidlna_server_name }}
+
+db_dir={{ minidlna_db_dir }}
+log_dir={{ minidlna_log_dir }}
+log_level=general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn
+
+album_art_names=Cover.jpg/cover.jpg/AlbumArtSmall.jpg/albumartsmall.jpg/AlbumArt.jpg/albumart.jpg/Album.jpg/album.jpg/Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg
+
+inotify={{ minidlna_inotify }}
+
+# set this to yes to enable support for streaming .jpg and .mp3 files to a TiVo supporting HMO
+enable_tivo=no
+
+strict_dlna=no
+notify_interval={{ minidlna_notify_interval }}
+
+serial=12345678
+model_number=1
+
+# use different container as root of the tree
+# possible values:
+#   + "." - use standard container (this is the default)
+#   + "B" - "Browse Directory"
+#   + "M" - "Music"
+#   + "V" - "Video"
+#   + "P" - "Pictures"
+# if you specify "B" and client device is audio-only then "Music/Folders" will be used as root
+#root_container=.

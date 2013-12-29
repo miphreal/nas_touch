@@ -1,0 +1,13 @@
+# temporarely files
+*.pyc
+*.swp
+*.swo
+ctrl/*.log
+ctrl/*.sock
+ctrl/*.touch
+static/*
+
+# IDE
+.idea
+
+.vagrant

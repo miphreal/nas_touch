@@ -1,0 +1,4 @@
+---
+nas_data_dir: /mnt/data
+nas_data_device: /dev/nas/data
+nas_device_type: ext4

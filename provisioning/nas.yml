@@ -1,0 +1,9 @@
+---
+- hosts: nas
+  remote_user: root
+  sudo: yes
+  roles:
+  - role: common
+  - role: nas.users
+  - role: nas.fs
+  - role: minidlna

@@ -1,0 +1,18 @@
+---
+minidlna_src: http://freefr.dl.sourceforge.net/project/minidlna/minidlna/1.1.1/minidlna-1.1.1.tar.gz
+minidlna_user: minidlna
+minidlna_group: minidlna
+minidlna_web_port: 8200
+minidlna_network_interface: eth0
+minidlna_server_name: My DLNA Server
+minidlna_media:
+- V,/data/video/
+- P,/data/music/
+- A,/data/pictures/
+- /data/public/
+minidlna_conf: /etc/minidlna.conf
+minidlna_db_dir: /var/cache/minidlna
+minidlna_log_dir: /var/log
+minidlna_inotify: yes
+minidlna_notify_interval: 900
+minidlna_daemon_ops: ''

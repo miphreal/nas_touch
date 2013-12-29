@@ -1,0 +1,2 @@
+[nas]
+nas.loc     ansible_ssh_user=vagrant ansible_ssh_pass=vagrant minidlna_network_interface=eth1

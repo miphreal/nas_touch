@@ -1,0 +1,18 @@
+---
+- name: Install minidlna dependencies
+  apt: pkg=apache2 state=present
+
+- apt_repository: repo='ppa:stedy6/stedy-minidna' update_cache=yes
+- apt: pkg=minidlna state=latest
+
+- file: path={{ minidlna_db_dir }} state=directory owner={{ minidlna_user }} group={{ minidlna_group }}
+
+- template: src=minidlna.conf.j2 dest={{ minidlna_conf }}
+  notify:
+  - restart minidlna
+
+- template: src=minidlna.default.j2 dest=/etc/default/minidlna
+  notify:
+  - restart minidlna
+
+- service: name=minidlna state=started enabled=yes

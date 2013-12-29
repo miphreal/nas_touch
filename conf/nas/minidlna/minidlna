@@ -1,0 +1,9 @@
+START_DAEMON="yes"
+
+CONFIGFILE="/etc/minidlna.conf"
+LOGFILE="/var/log/minidlna.log"
+
+USER="minidlna"
+GROUP="minidlna"
+
+DAEMON_OPTS=""

@@ -1,0 +1,21 @@
+---
+- name: Initialize media root
+  file: path={{ nas_data_dir }}                   state=directory mode=0775 group=nas-user   owner=nas-admin
+
+- name: Initialize public folders
+  file: path={{ nas_data_dir }}/{{ item }}        state=directory mode=0775 group=nas-public owner=nas-public
+  with_items: [public, public/torrents]
+
+- name: Initialize media folders
+  file: path={{ nas_data_dir }}/{{ item }}        state=directory mode=0775 group=nas-user owner=nas-user
+  with_items:
+  - .daemons
+  - .incomplete
+  - music
+  - video
+  - pictures
+  - documents
+  - books
+  - audiobooks
+  - data
+  - develop

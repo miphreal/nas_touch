@@ -1,0 +1,4 @@
+---
+# passwords can be generated via openssl passwd -salt <salt> -1 "<password>"
+admin_pass: $1$pUjmB9$ItAILGRZyiFW/oTtYfIgs/
+user_pass:  $1$ItAILG$QrcdS8v2JMWpGsGXY.G47.

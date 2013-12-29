@@ -1,0 +1,18 @@
+---
+# NAS passwords
+admin_pass: $1$pUjmB9$ItAILGRZyiFW/oTtYfIgs/
+user_pass:  $1$ItAILG$QrcdS8v2JMWpGsGXY.G47.
+
+# FS settings
+nas_data_dir: /mnt/data
+
+# DLNA config
+minidlna_web_port: 8200
+minidlna_network_interface: eth0
+minidlna_server_name: NAS:DLNA Server
+minidlna_media:
+- V,{{ nas_data_dir }}/video/
+- P,{{ nas_data_dir }}/music/
+- A,{{ nas_data_dir }}/pictures/
+- '{{ nas_data_dir }}/public/'
+minidlna_notify_interval: 60

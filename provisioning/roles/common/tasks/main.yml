@@ -1,0 +1,18 @@
+---
+- name: Update system / Upgrade system
+  apt: update_cache=yes upgrade=dist
+
+- name: Install common packages
+  apt: pkg={{ item }} state=present
+  with_items:
+  - vim
+  - curl
+  - git
+  - python-pip
+  - python-virtualenv
+  - python-pycurl
+
+- name: Increase fs.inotify.max_user_watches value
+  lineinfile: dest=/etc/sysctl.conf regexp=^fs.inotify.max_user_watches= line=fs.inotify.max_user_watches={{ max_user_watches }}
+  notify:
+  - restart procps
