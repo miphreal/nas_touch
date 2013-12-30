@@ -14,5 +14,14 @@ minidlna_media:
 - V,{{ nas_data_dir }}/video/
 - P,{{ nas_data_dir }}/music/
 - A,{{ nas_data_dir }}/pictures/
-- '{{ nas_data_dir }}/public/'
+- "{{ nas_data_dir }}/public/"
 minidlna_notify_interval: 60
+
+# BitTorrent config
+deluge_autoadd_enable: true
+deluge_autoadd_location: "{{ nas_data_dir }}/.daemons/dropbox/Dropbox/sys/nas/new-torrents"
+deluge_download_location: "{{ nas_data_dir }}/.incomplete/"
+deluge_move_completed_path: "{{ nas_data_dir }}/public/torrents/"
+deluge_web_port: 8300
+deluge_web_user: nas-user
+deluge_web_pass: nas-user%)

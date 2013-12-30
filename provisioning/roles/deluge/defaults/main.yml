@@ -1,0 +1,57 @@
+---
+deluge_user: deluge
+deluge_group: deluge
+deluge_user_home: /var/lib/deluge
+
+deluge_daemon_log: /var/log/deluge/daemon/warning.log
+deluged_args: -d -L warning -l {{ deluge_daemon_log }}
+
+deluge_listen_interface: ''
+
+deluge_autoadd_enable: true
+deluge_autoadd_location: /data/new-torrents
+deluge_plugins: /var/lib/deluge/plugins
+deluge_torrentfiles_location: /var/lib/deluge
+deluge_download_location: /data/.incomplete
+deluge_move_completed_path: /data/torrents
+
+deluge_max_connections_per_torrent: -1
+deluge_add_paused: false
+deluge_move_completed: true
+deluge_del_copy_torrent_file: false
+deluge_copy_torrent_file: false
+
+deluge_stop_seed_at_ratio: true
+deluge_seed_time_limit: 180
+deluge_stop_seed_ratio: 0.5
+deluge_seed_time_ratio_limit: 3.0
+deluge_share_ratio_limit: 2.0
+
+deluge_upnp: true
+deluge_dht: true
+deluge_max_connections_global: 200
+
+deluge_max_download_speed: -1.0
+deluge_max_download_speed_per_torrent: -1
+deluge_max_upload_speed: -1.0
+deluge_max_upload_speed_per_torrent: -1
+
+deluge_max_active_limit: 8
+deluge_max_active_seeding: 5
+deluge_max_active_downloading: 3
+deluge_max_upload_slots_global: 4
+deluge_max_upload_slots_per_torrent: -1
+
+deluge_cache_size: 512
+deluge_cache_expiry: 60
+
+deluge_auto_managed: true
+deluge_prioritize_first_last_pieces: true
+deluge_max_half_open_connections: 100
+
+# Web UI
+deluge_web_port: 8112
+deluge_web_user: deluge
+deluge_web_pass: deluge
+deluge_web_log: /var/log/deluge/web/warning.log
+deluge_web_args: -L warning -l {{ deluge_web_log }} --port={{ deluge_web_port }}

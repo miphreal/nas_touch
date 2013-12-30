@@ -1,0 +1,39 @@
+---
+- apt_repository: repo='ppa:deluge-team/ppa' update_cache=yes
+- name: Install deluge (BitTorrent client + web ui)
+  apt: pkg={{ item }} state=latest
+  with_items:
+  - deluged
+  - deluge-webui
+
+- name: Initilize user
+  user: name={{ deluge_user }} home={{ deluge_user_home }} system=yes state=present
+
+- name: Initilize log folders
+  file: path=/var/log/deluge/{{ item }} state=directory owner={{ deluge_user }} group={{ deluge_group }} mode=755
+  with_items:
+  - daemon
+  - web
+
+- name: Initilize logrotate
+  template: src=log-rotate.j2 dest=/etc/logrotate.d/deluge
+
+- name: Install inid.d script
+  template: src=deluged.init.d.j2 dest=/etc/init.d/deluged mode=0755
+  notify:
+  - restart deluged
+
+- name: Install /etc/default config
+  template: src=deluged.default.j2 dest=/etc/default/deluged
+  notify:
+  - restart deluged
+
+- name: Copy configs
+  template: src={{ item }}.j2 dest={{ deluge_user_home }}/.config/deluge/{{ item }} owner={{ deluge_user }} group={{ deluge_group }} mode=644
+  with_items:
+  - core.conf
+  - auth
+  notify:
+  - restart deluged
+
+- service: name=deluged state=started enabled=yes

@@ -1,0 +1,3 @@
+---
+- name: restart deluged
+  service: name=deluged state=restarted

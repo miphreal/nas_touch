@@ -1,0 +1,104 @@
+{
+  "file": 1,
+  "format": 1
+}{
+  "info_sent": 0.0,
+  "lsd": true,
+  "send_info": false,
+  "move_completed_path": "{{ deluge_move_completed_path }}",
+  "enc_in_policy": 1,
+  "queue_new_to_top": false,
+  "ignore_limits_on_local_network": true,
+  "rate_limit_ip_overhead": true,
+  "daemon_port": 58846,
+  "natpmp": true,
+  "max_active_limit": {{ deluge_max_active_limit }},
+  "utpex": true,
+  "max_active_downloading": {{ deluge_max_active_downloading }},
+  "max_active_seeding": {{ deluge_max_active_seeding }},
+  "allow_remote": false,
+  "max_half_open_connections": {{ deluge_max_half_open_connections }},
+  "download_location": "{{ deluge_download_location }}",
+  "compact_allocation": false,
+  "max_upload_speed": {{ deluge_max_upload_speed }},
+  "cache_expiry": {{ deluge_cache_expiry }},
+  "prioritize_first_last_pieces": {{ deluge_prioritize_first_last_pieces|lower }},
+  "auto_managed": {{ deluge_auto_managed|lower }},
+  "enc_level": 2,
+  "max_connections_per_second": 20,
+  "dont_count_slow_torrents": false,
+  "random_outgoing_ports": true,
+  "max_upload_slots_per_torrent": {{ deluge_max_upload_slots_per_torrent }},
+  "new_release_check": false,
+  "enc_out_policy": 1,
+  "outgoing_ports": [
+    0,
+    0
+  ],
+  "seed_time_limit": {{ deluge_seed_time_limit }},
+  "cache_size": {{ deluge_cache_size }},
+  "share_ratio_limit": {{ deluge_share_ratio_limit }},
+  "max_download_speed": {{ deluge_max_download_speed }},
+  "geoip_db_location": "/usr/share/GeoIP/GeoIP.dat",
+  "torrentfiles_location": "{{ deluge_torrentfiles_location }}",
+  "stop_seed_at_ratio": {{ deluge_stop_seed_at_ratio|lower }},
+  "peer_tos": "0x00",
+  "listen_interface": "{{ deluge_listen_interface }}",
+  "upnp": {{ deluge_upnp|lower }},
+  "max_download_speed_per_torrent": {{ deluge_max_download_speed_per_torrent }},
+  "max_upload_slots_global": {{ deluge_max_upload_slots_global }},
+  "enabled_plugins": [
+    "AutoAdd",
+    "Execute"
+  ],
+  "random_port": true,
+  "autoadd_enable": {{ deluge_autoadd_enable|lower }},
+  "max_connections_global": {{ deluge_max_connections_global }},
+  "enc_prefer_rc4": true,
+  "listen_ports": [
+    6881,
+    6891
+  ],
+  "dht": {{ deluge_dht|lower }},
+  "stop_seed_ratio": {{ deluge_stop_seed_ratio }},
+  "seed_time_ratio_limit": {{ deluge_seed_time_ratio_limit }},
+  "max_upload_speed_per_torrent": {{ deluge_max_upload_speed_per_torrent }},
+  "copy_torrent_file": {{ deluge_copy_torrent_file|lower }},
+  "del_copy_torrent_file": {{ deluge_del_copy_torrent_file|lower }},
+  "move_completed": {{ deluge_move_completed|lower }},
+  "proxies": {
+    "peer": {
+      "username": "",
+      "password": "",
+      "type": 0,
+      "hostname": "",
+      "port": 8080
+    },
+    "web_seed": {
+      "username": "",
+      "password": "",
+      "type": 0,
+      "hostname": "",
+      "port": 8080
+    },
+    "tracker": {
+      "username": "",
+      "password": "",
+      "type": 0,
+      "hostname": "",
+      "port": 8080
+    },
+    "dht": {
+      "username": "",
+      "password": "",
+      "type": 0,
+      "hostname": "",
+      "port": 8080
+    }
+  },
+  "add_paused": {{ deluge_add_paused|lower }},
+  "max_connections_per_torrent": {{ deluge_max_connections_per_torrent }},
+  "remove_seed_at_ratio": false,
+  "autoadd_location": "{{ deluge_autoadd_location }}",
+  "plugins_location": "{{ deluge_plugins }}"
+}

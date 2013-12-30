@@ -7,3 +7,4 @@
   - role: nas.users
   - role: nas.fs
   - role: minidlna
+  - role: deluge
