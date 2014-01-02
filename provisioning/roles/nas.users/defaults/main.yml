@@ -1,4 +1,7 @@
 ---
-# passwords can be generated via openssl passwd -salt <salt> -1 "<password>"
-admin_pass: $1$pUjmB9$ItAILGRZyiFW/oTtYfIgs/
-user_pass:  $1$ItAILG$QrcdS8v2JMWpGsGXY.G47.
+# passwords can be generated via openssl passwd -1 "<password>"
+empty_password:  {hash: "$1$c.SKY/4O$78wGKcIANos6IOcJLnLNV.", plain: ''}
+
+nas_public_users: []
+nas_users: []
+nas_admins: []

@@ -1,0 +1,49 @@
+---
+samba_home_dir: /var/lib/samba
+samba_sam_backup: "{{ samba_home_dir }}/passdb_backup.tdb"
+
+## Browsing/Identification
+samba_workgroup: WORKGROUP
+samba_server_string: "%h server (Samba, Ubuntu)"
+samba_wins_support: "no"
+samba_dns_proxy: "no"
+samba_name_resolve_order: lmhosts host wins bcast
+
+## Networking
+samba_interfaces: lo eth0
+samba_bind_interfaces_only: "yes"
+
+## Debugging/Accounting
+samba_log_file: "/var/log/samba/log.%m"
+samba_max_log_size: 1000
+samba_syslog_only: "no"
+samba_syslog: 0
+
+## Authentication
+samba_security: "user"
+samba_encrypt_passwords: "true"
+samba_passdb_backend: tdbsam
+samba_obey_pam_restrictions: "yes"
+samba_unix_password_sync: "no"
+samba_passwd_program: "/usr/bin/passwd %u"
+samba_pam_password_change: "no"
+samba_map_to_guest: bad user
+samba_usershare_allow_guests: "yes"
+samba_guest_account: nobody
+samba_users_map:
+- win: public
+  unix: "{{ samba_guest_account }}"
+samba_default_write_list: ''
+
+## Shares
+
+samba_shares: []
+samba_share_default:
+  comment: ''
+  path: /tmp/none
+  browsable: 'yes'
+  read_only: 'yes'
+  create_mask: '0775'
+  directory_mask: '0775'
+  guest_ok: 'yes'
+  write_list: '{{ samba_default_write_list }}'

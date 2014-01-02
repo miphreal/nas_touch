@@ -8,14 +8,4 @@
 
 - name: Initialize media folders
   file: path={{ nas_data_dir }}/{{ item }}        state=directory mode=0775 group=nas-user owner=nas-user
-  with_items:
-  - .daemons
-  - .incomplete
-  - music
-  - video
-  - pictures
-  - documents
-  - books
-  - audiobooks
-  - data
-  - develop
+  with_items: nas_data_folders

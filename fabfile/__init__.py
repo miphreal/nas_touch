@@ -72,7 +72,7 @@ def ans(alias):
         'log-dlna': lambda: cmd('tail -n 50 /var/log/minidlna.log'),
 
         'restart-deluge': lambda: ansible('-m service -a "name=deluged state=restarted"'),
-        'log-deluge': lambda: cmd('sudo tail -n 50 /var/log/deluge/daemon/warning.log')
+        'log-deluge': lambda: cmd('sudo tail -n 50 /var/log/deluge/daemon/warning.log'),
     }
 
     def h():

@@ -1,0 +1,3 @@
+{% for mapping in samba_users_map %}
+{{ mapping.win }} = {{ mapping.unix }}
+{% endfor %}

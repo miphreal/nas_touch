@@ -1,11 +1,19 @@
 ---
-- name: Register public user
-  user: name=nas-public shell=/usr/sbin/nologin system=no
+- name: Register public users
+  user: name={{ item.name }} shell=/usr/sbin/nologin system=no
+        password={{ item.pass.hash|default(empty_password.hash, true) }}
+  with_items: nas_public_users
 
-- name: Register user
-  user: name=nas-user groups=nas-public password={{ user_pass }} shell=/bin/bash
+- name: Register users
+  user: name={{ item.name }} groups={{ item.groups }}
+        password={{ item.pass.hash|default(empty_password.hash, true) }}
+        shell=/bin/bash
+  with_items: nas_users
 
-- name: Register admin user
-  user: name=nas-admin groups=admin,nas-user,nas-public system=yes password={{ admin_pass }} shell=/bin/bash
+- name: Register admin users
+  user: name={{ item.name }} groups={{ item.groups }}
+        system=yes password={{ item.pass.hash|default(empty_password.hash, true) }}
+        shell=/bin/bash
+  with_items: nas_admins
 
 

@@ -15,6 +15,9 @@
   - daemon
   - web
 
+- name: Initilize config folders
+  file: path={{ deluge_user_home }}/.config/deluge state=directory owner={{ deluge_user }} group={{ deluge_group }} mode=755
+
 - name: Initilize logrotate
   template: src=log-rotate.j2 dest=/etc/logrotate.d/deluge
 

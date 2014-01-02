@@ -1,0 +1,53 @@
+[global]
+
+## Browsing/Identification ###
+   workgroup = {{ samba_workgroup }}
+;   server string = {{ samba_server_string }}
+;   wins support = {{ samba_wins_support }}
+;   wins server = w.x.y.z
+;   dns proxy = {{ samba_dns_proxy }}
+;   name resolve order = {{ samba_name_resolve_order }}
+
+#### Networking ####
+;   interfaces = {{ samba_interfaces }}
+;   bind interfaces only = {{ samba_bind_interfaces_only }}
+
+#### Debugging/Accounting ####
+   log file = {{ samba_log_file }}
+   max log size = {{ samba_max_log_size }}
+   syslog only = {{ samba_syslog_only }}
+   syslog = {{ samba_syslog }}
+   panic action = /usr/share/samba/panic-action %d
+
+####### Authentication #######
+   security = {{ samba_security }}
+   encrypt passwords = {{ samba_encrypt_passwords }}
+   passdb backend = {{ samba_passdb_backend }}
+   obey pam restrictions = {{ samba_obey_pam_restrictions }}
+   unix password sync = {{ samba_unix_password_sync }}
+   passwd program = {{ samba_passwd_program }}
+   passwd chat = *Enter new UNIX password:* %n\n *Retype new UNIX password:* %n\n *passwd: password updated successfully*
+   pam password change = {{ samba_pam_password_change }}
+;   map to guest = {{ samba_map_to_guest }}
+   guest account = {{ samba_guest_account }}
+
+############ Misc ############
+   socket options = TCP_NODELAY
+# Maximum number of usershare. 0 (default) means that usershare is disabled.
+;   usershare max shares = 100
+
+;   usershare allow guests = {{ samba_usershare_allow_guests }}
+;   username map = /etc/samba/smbusers
+
+#======================= Share Definitions =======================
+{% for share in samba_shares %}
+[{{ share.name }}]
+    comment = {{ share.comment|default(samba_share_default.comment, true) }}
+    path = {{ share.path|default(samba_share_default.path, true) }}
+    browsable = {{ share.browsable|default(samba_share_default.browsable, true) }}
+    read only = {{ share.read_only|default(samba_share_default.read_only, true) }}
+    create mask = {{ share.create_mask|default(samba_share_default.create_mask, true) }}
+    directory mask = {{ share.directory_mask|default(samba_share_default.directory_mask, true) }}
+    guest ok = {{ share.guest_ok|default(samba_share_default.guest_ok, true) }}
+    write list = {{ share.write_list|default(samba_share_default.write_list, true) }}
+{% endfor %}

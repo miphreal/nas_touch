@@ -1,0 +1,28 @@
+---
+- name: Install samba (server + web ui)
+  apt: pkg={{ item }} state=latest
+  with_items:
+  - libpam-smbpass
+  - smbclient
+  - samba
+  - swat
+
+- name: Copy configs
+  template: src={{ item }}.j2 dest=/etc/samba/{{ item }}
+  with_items:
+  - smb.conf
+  - smbusers
+  notify:
+  - update guest user
+  - restart samba
+
+- name: Copy samba users
+  copy: src=sam.tdb dest={{ samba_sam_backup }}
+  notify:
+  - import samba users
+
+- service: name={{ item }} state=started enabled=yes
+  with_items:
+  - smbd
+  - nmbd
+

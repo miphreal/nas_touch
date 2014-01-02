@@ -1,0 +1,14 @@
+---
+- name: restart samba
+  service: name={{item}} state=restarted
+  with_items:
+  - smbd
+  - nmbd
+
+- name: import samba users
+  command: cp {{ samba_sam_backup }} {{ samba_home_dir }}/passdb.tdb
+  notify:
+  - restart samba
+
+- name: update guest user
+  command: smbpasswd -n {{ samba_guest_account }}

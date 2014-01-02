@@ -1,10 +1,32 @@
 ---
-# NAS passwords
-admin_pass: $1$pUjmB9$ItAILGRZyiFW/oTtYfIgs/
-user_pass:  $1$ItAILG$QrcdS8v2JMWpGsGXY.G47.
+# NAS users
+nas_public_users:
+  - name: nas-public
+    pass: {hash: $1$x3WnpNxm$izd4SdbsEY6emyC5NASYR1}
+
+nas_users:
+  - name: nas-user
+    pass: {hash: $1$Bhu46IZ4$g7pE31nkp.yGikqpieujE1}
+    groups: 'nas-public'
+
+nas_admins:
+  - name: nas-admin
+    pass: {hash: $1$Y/vTmG87$SYS6/lCTjsgdrw2Cg0Ddy0}
+    groups: 'admin,nas-user,nas-public'
 
 # FS settings
 nas_data_dir: /mnt/data
+nas_data_folders:
+- .daemons
+- .incomplete
+- music
+- video
+- pictures
+- documents
+- books
+- audiobooks
+- data
+- develop
 
 # DLNA config
 minidlna_web_port: 8200
@@ -14,14 +36,47 @@ minidlna_media:
 - V,{{ nas_data_dir }}/video/
 - P,{{ nas_data_dir }}/music/
 - A,{{ nas_data_dir }}/pictures/
-- "{{ nas_data_dir }}/public/"
+- '{{ nas_data_dir }}/public/'
 minidlna_notify_interval: 60
 
 # BitTorrent config
-deluge_autoadd_enable: true
-deluge_autoadd_location: "{{ nas_data_dir }}/.daemons/dropbox/Dropbox/sys/nas/new-torrents"
-deluge_download_location: "{{ nas_data_dir }}/.incomplete/"
-deluge_move_completed_path: "{{ nas_data_dir }}/public/torrents/"
+deluge_autoadd_enable: 'true'
+deluge_autoadd_location: '{{ nas_data_dir }}/.daemons/dropbox/Dropbox/sys/nas/new-torrents'
+deluge_download_location: '{{ nas_data_dir }}/.incomplete/'
+deluge_move_completed_path: '{{ nas_data_dir }}/public/torrents/'
 deluge_web_port: 8300
-deluge_web_user: nas-user
-deluge_web_pass: nas-user%)
+deluge_web_user: '{{ nas_users.0.name }}'
+deluge_web_pass: "{{ lookup('password', 'credentials/deluge_web/' + nas_users.0.name + ' length=15') }}"
+
+# Samba config:
+samba_guest_account: '{{ nas_public_users.0.name }}'
+samba_map_to_guest: 'yes'
+samba_server_string: NAS Samba Server
+samba_workgroup: MIPH
+samba_default_write_list: '@{{ nas_users.0.name }} @{{ nas_admins.0.name }} '
+samba_users_map:
+- win: guest
+  unix: '{{ samba_guest_account}}'
+
+samba_shares:
+- name: public
+  path: '{{ nas_data_dir }}/public/'
+  read_only: 'no'
+  create_mask: "0777"
+  directory_mask: "0777"
+  write_list: '@{{ nas_public_users.0.name }} {{ samba_default_write_list }}'
+
+- name: video
+  path: '{{ nas_data_dir }}/video/'
+
+- name: music
+  path: '{{ nas_data_dir }}/music/'
+
+- name: pictures
+  path: '{{ nas_data_dir }}/pictures/'
+
+- name: data
+  path: '{{ nas_data_dir }}'
+  browsable: 'no'
+  guest_ok: 'no'
+  write_list: '@{{ nas_admins.0.name }}'

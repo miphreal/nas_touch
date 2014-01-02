@@ -8,3 +8,4 @@
   - role: nas.fs
   - role: minidlna
   - role: deluge
+  - role: samba
