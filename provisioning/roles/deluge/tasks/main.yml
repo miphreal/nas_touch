@@ -4,6 +4,9 @@
   apt: pkg={{ item }} state=latest
   with_items:
   - deluged
+  - deluge-console
+  - deluge-common
+  - deluge-torrent
   - deluge-webui
 
 - name: Initilize user
@@ -16,7 +19,17 @@
   - web
 
 - name: Initilize config folders
-  file: path={{ deluge_user_home }}/.config/deluge state=directory owner={{ deluge_user }} group={{ deluge_group }} mode=755
+  file: path={{ deluge_user_home }}/.config/{{ item }} state=directory owner={{ deluge_user }} group={{ deluge_group }} mode=755
+  with_items:
+  - deluge
+  - deluge/state
+  - deluge/plugins
+
+- name: Install plugins
+  get_url: url={{ item }} dest={{ deluge_user_home }}/.config/deluge/plugins/ owner={{ deluge_user }} group={{ deluge_group }} mode=755
+  with_items: deluge_install_plugins
+  notify:
+  - restart deluged
 
 - name: Initilize logrotate
   template: src=log-rotate.j2 dest=/etc/logrotate.d/deluge
@@ -32,9 +45,10 @@
   - restart deluged
 
 - name: Copy configs
-  template: src={{ item }}.j2 dest={{ deluge_user_home }}/.config/deluge/{{ item }} owner={{ deluge_user }} group={{ deluge_group }} mode=644
+  template: src={{ item }}.j2 dest={{ deluge_user_home }}/.config/deluge/{{ item }} owner={{ deluge_user }} group={{ deluge_group }} mode=640
   with_items:
   - core.conf
+  - execute.conf
   - auth
   notify:
   - restart deluged

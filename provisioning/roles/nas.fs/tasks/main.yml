@@ -1,11 +1,14 @@
 ---
 - name: Initialize media root
-  file: path={{ nas_data_dir }}                   state=directory mode=0775 group=nas-user   owner=nas-admin
+  file: path={{ nas_data_dir }}
+        state=directory mode=0775 group={{ nas_users.0.name }}   owner={{ nas_admins.0.name }}
 
 - name: Initialize public folders
-  file: path={{ nas_data_dir }}/{{ item }}        state=directory mode=0775 group=nas-public owner=nas-public
-  with_items: [public, public/torrents]
+  file: path={{ nas_data_dir }}/{{ item }}
+        state=directory mode=0775 group={{ nas_public_users.0.name }} owner={{ nas_public_users.0.name }}
+  with_items: nas_public_folders
 
 - name: Initialize media folders
-  file: path={{ nas_data_dir }}/{{ item }}        state=directory mode=0775 group=nas-user owner=nas-user
+  file: path={{ nas_data_dir }}/{{ item }}
+        state=directory mode=0775 group={{ nas_users.0.name }} owner={{ nas_users.0.name }}
   with_items: nas_data_folders

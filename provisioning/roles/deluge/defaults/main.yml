@@ -8,6 +8,8 @@ deluged_args: -d -L warning -l {{ deluge_daemon_log }}
 
 deluge_listen_interface: ''
 
+deluge_install_plugins: []
+
 deluge_autoadd_enable: true
 deluge_autoadd_location: /data/new-torrents
 deluge_plugins: /var/lib/deluge/plugins
@@ -51,7 +53,5 @@ deluge_max_half_open_connections: 100
 
 # Web UI
 deluge_web_port: 8112
-deluge_web_user: deluge
-deluge_web_pass: deluge
 deluge_web_log: /var/log/deluge/web/warning.log
 deluge_web_args: -L warning -l {{ deluge_web_log }} --port={{ deluge_web_port }}
