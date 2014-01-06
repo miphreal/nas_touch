@@ -10,10 +10,14 @@
         shell=/bin/bash
   with_items: nas_users
 
+- name: Check admin group
+  group: name=admin state=present
+
 - name: Register admin users
   user: name={{ item.name }} groups={{ item.groups }}
         system=yes password={{ item.pass.hash|default(empty_password.hash, true) }}
         shell=/bin/bash
   with_items: nas_admins
 
-
+- name: Update sudoers
+  lineinfile: dest=/etc/sudoers state=present regexp='^%admin ALL\=' line='%admin ALL=(ALL) NOPASSWD:ALL' validate='visudo -cf %s'
