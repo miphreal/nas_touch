@@ -13,6 +13,11 @@
   - python-pycurl
 
 - name: Increase fs.inotify.max_user_watches value
-  lineinfile: dest=/etc/sysctl.conf regexp=^fs.inotify.max_user_watches= line=fs.inotify.max_user_watches={{ max_user_watches }}
+  sysctl: name=fs.inotify.max_user_watches value={{ max_user_watches }} state=present
   notify:
   - restart procps
+
+- name: Set locales
+  template: src=locales.j2 dest=/var/opt/generated-locales
+  notify:
+  - regenerate locales

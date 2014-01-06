@@ -1,2 +1,7 @@
 ---
 max_user_watches: 524288
+locales:
+- en_US
+- en_US.UTF-8
+- ru_RU
+- ru_RU.UTF-8
