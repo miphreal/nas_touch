@@ -1,6 +1,8 @@
 ---
+# Expect ubuntu-server with user `nas-admin` + ssh access (private key ~/.ssh/nas)
+#
 - hosts: nas
-  remote_user: root
+  remote_user: nas-admin
   sudo: yes
   roles:
   - role: common
@@ -9,3 +11,4 @@
   - role: minidlna
   - role: deluge
   - role: samba
+#  - role: btsync
