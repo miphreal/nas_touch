@@ -62,7 +62,7 @@ def provision(play_book, args=''):
 def ans(alias):
     """Calls alias command"""
     shortcuts = {
-        'nas': lambda: provision('nas'),
+        'nas': lambda: provision('nas', '-K'),
 
         'ping': lambda: ping(),
         'facts': lambda: ansible('-m setup'),
