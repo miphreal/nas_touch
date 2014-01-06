@@ -4,3 +4,6 @@ Desired soft:
   + Samba
   + minidlna
   - Dropbox
+  - XMPP/Email notification
+  - udpxy or ?
+  - app server
