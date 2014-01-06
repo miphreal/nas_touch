@@ -1,6 +1,8 @@
 [nas]
-nas.loc     ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+nas.loc
 
 [nas:vars]
+ansible_ssh_user=vagrant
+ansible_ssh_pass=vagrant
 samba_interfaces = lo eth1
 minidlna_network_interface = eth1

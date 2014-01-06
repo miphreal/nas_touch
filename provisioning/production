@@ -1,2 +1,7 @@
 [nas]
 nas
+
+[nas:vars]
+ansible_ssh_user = nas-admin
+ansible_connection = ssh
+ansible_ssh_private_key_file = ~/.ssh/nas
