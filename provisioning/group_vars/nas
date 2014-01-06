@@ -2,16 +2,16 @@
 # NAS users
 nas_public_users:
   - name: nas-public
-    pass: {hash: $1$x3WnpNxm$izd4SdbsEY6emyC5NASYR1}
+    pass: {hash: $1$OH681vxo$L.JGUDWNAm4NIyS5eX.J71}
 
 nas_users:
   - name: nas-user
-    pass: {hash: $1$Bhu46IZ4$g7pE31nkp.yGikqpieujE1}
+    pass: {hash: $1$gtVlvfAY$AYcN7Mh5mwgffRsyrCisy1}
     groups: 'nas-public'
 
 nas_admins:
   - name: nas-admin
-    pass: {hash: $1$Y/vTmG87$SYS6/lCTjsgdrw2Cg0Ddy0}
+    pass: {hash: $1$CnE9SXxL$zTvqVYAfxU3qU5C7fKDYO0}
     groups: 'admin,nas-user,nas-public'
 
 # FS settings
@@ -26,7 +26,10 @@ nas_data_folders:
 - books
 - audiobooks
 - data
-- develop
+- sync
+- sync/nb
+- sync/mobile
+- sync/tablet
 nas_public_folders:
 - public
 - public/torrents
@@ -82,3 +85,10 @@ samba_shares:
   browsable: 'no'
   guest_ok: 'no'
   write_list: '@{{ nas_admins.0.name }}'
+
+# btsync config
+btsync_device_name: 'NAS:BTSync'
+btsync_web_port: 8400
+btsync_group: '{{ nas_users.0.name }}'
+btsync_web_login: '{{ nas_users.0.name }}'
+btsync_web_password: 'btsync'

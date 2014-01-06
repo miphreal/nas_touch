@@ -1,0 +1,20 @@
+{
+	"device_name": "{{ btsync_device_name }}",
+	"storage_path" : "{{ btsync_storage_path }}",
+	"listening_port" : 0,
+	"check_for_updates" : {{ btsync_check_for_updates }},
+	"use_upnp" : {{ btsync_use_upnp }},
+	"download_limit" : 0,
+	"upload_limit" : 0,
+	"disk_low_priority" : true,
+	"lan_encrypt_data" : {{ btsync_lan_encrypt_data}},
+	"lan_use_tcp" : {{ btsync_lan_use_tcp }},
+	"rate_limit_local_peers" : false,
+	"folder_rescan_interval" : {{ btsync_folder_rescan_interval }},
+	"webui" :
+	{
+		"listen" : "{{ btsync_web_address }}:{{ btsync_web_port }}",
+		"login" : "{{ btsync_web_login }}",
+		"password" : "{{ btsync_web_password }}"
+	}
+}

@@ -1,0 +1,29 @@
+---
+btsync_src: http://download-lb.utorrent.com/endpoint/btsync/os/linux-glibc23-i386/track/stable
+btsync_user: btsync
+btsync_group: '{{ btsync_user }}'
+btsync_user_home: /var/lib/btsync
+btsync_device_name: 'btsync'
+
+btsync_check_for_updates: 'false'
+btsync_use_upnp: 'true'
+btsync_lan_encrypt_data: 'true'
+btsync_lan_use_tcp: 'false'
+btsync_folder_rescan_interval: 180
+btsync_storage_path: '{{ btsync_user_home }}'
+btsync_web_port: 8888
+btsync_web_address: 0.0.0.0
+btsync_web_login: '{{ btsync_user }}'
+btsync_web_password: 'btsync'
+
+btsync_instances:
+  - config_src: general
+    instance_name: general
+
+btsync_daemon_args: ''
+btsync_daemon_debug: 0
+btsync_daemon_instances: 'all'  # all | none | space separated list
+btsync_daemon_configs:
+- general
+
+

@@ -1,0 +1,34 @@
+---
+- name: Register {{ btsync_group }} group
+  group: name={{ btsync_group }} state=present
+
+- name: Register {{ btsync_user }} user
+  user: name={{ btsync_user }} shell=/usr/sbin/nologin system=no
+
+- name: Init btsync home folder
+  file: path={{ btsync_user_home }} state=directory owner={{ btsync_user }} group={{ btsync_group }} mode=755
+
+- name: Download btsync
+  get_url: url={{ btsync_src }} dest={{ btsync_user_home }}/btsync-src.tar.gz owner={{ btsync_user }} group={{ btsync_group }} mode=666
+  notify:
+  - unpack btsync src
+
+- meta: flush_handlers
+
+- name: Create symlink
+  file: src={{ btsync_user_home }}/btsync dest=/usr/local/bin/btsync state=link owner=root group=root mode=775
+
+- name: Copy init.d script
+  template: src=btsync.init.d.j2 dest=/etc/init.d/btsync mode=775
+
+- name: Copy init.d config
+  template: src=btsync.default.j2 dest=/etc/default/btsync
+
+- name: Init daemon config directory
+  file: path=/etc/btsync/ state=directory
+
+- name: Copy btsync configs
+  template: src=configs/{{ item.config_src }}.conf.j2 dest=/etc/btsync/{{ item.instance_name }}.conf mode=770
+  with_items: btsync_instances
+
+- service: name=btsync state=started enabled=yes
