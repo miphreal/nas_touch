@@ -1,11 +1,20 @@
 ---
 btsync_src: http://download-lb.utorrent.com/endpoint/btsync/os/linux-glibc23-i386/track/stable
+
 btsync_user: btsync
+btsync_user_groups: nogroup
 btsync_group: '{{ btsync_user }}'
 btsync_user_home: /var/lib/btsync
-btsync_device_name: 'btsync'
+btsync_src_arch: '{{ btsync_user_home }}/btsync-src.tar.gz'
+
+btsync_name: btsync
+btsync_bin: '{{ btsync_user_home }}/{{ btsync_name }}'
+btsync_conf: '{{ btsync_user_home }}/{{ btsync_name }}.conf'
+btsync_log: /var/log/{{ btsync_name }}.log
+btsync_daemon_args: --config {{ btsync_conf }} --nodaemon --log {{ btsync_log }}
 
 btsync_check_for_updates: 'false'
+btsync_device_name: 'btsync'
 btsync_use_upnp: 'true'
 btsync_lan_encrypt_data: 'true'
 btsync_lan_use_tcp: 'false'
@@ -15,15 +24,4 @@ btsync_web_port: 8888
 btsync_web_address: 0.0.0.0
 btsync_web_login: '{{ btsync_user }}'
 btsync_web_password: 'btsync'
-
-btsync_instances:
-  - config_src: general
-    instance_name: general
-
-btsync_daemon_args: ''
-btsync_daemon_debug: 0
-btsync_daemon_instances: 'all'  # all | none | space separated list
-btsync_daemon_configs:
-- general
-
 

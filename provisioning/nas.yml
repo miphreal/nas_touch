@@ -11,4 +11,4 @@
   - role: minidlna
   - role: deluge
   - role: samba
-#  - role: btsync
+  - role: btsync

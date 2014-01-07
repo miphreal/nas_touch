@@ -27,6 +27,7 @@ nas_data_folders:
 - audiobooks
 - data
 - sync
+- sync/pc
 - sync/nb
 - sync/mobile
 - sync/tablet
@@ -36,7 +37,7 @@ nas_public_folders:
 - public/auto-add-torrents
 
 # DLNA config
-minidlna_web_port: 8200
+minidlna_web_port: 8801
 minidlna_network_interface: eth0
 minidlna_server_name: NAS:DLNA Server
 minidlna_media:
@@ -51,7 +52,7 @@ deluge_autoadd_enable: 'true'
 deluge_autoadd_location: '{{ nas_data_dir }}/public/auto-add-torrents/'
 deluge_download_location: '{{ nas_data_dir }}/.incomplete/'
 deluge_move_completed_path: '{{ nas_data_dir }}/public/torrents/'
-deluge_web_port: 8300
+deluge_web_port: 8802
 
 # Samba config:
 samba_guest_account: '{{ nas_public_users.0.name }}'
@@ -88,7 +89,7 @@ samba_shares:
 
 # btsync config
 btsync_device_name: 'NAS:BTSync'
-btsync_web_port: 8400
-btsync_group: '{{ nas_users.0.name }}'
+btsync_web_port: 8803
 btsync_web_login: '{{ nas_users.0.name }}'
 btsync_web_password: 'btsync'
+btsync_user_groups: '{{ nas_users.0.name }},{{ nas_public_users.0.name }}'

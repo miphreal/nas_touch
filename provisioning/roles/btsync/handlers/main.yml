@@ -3,4 +3,4 @@
   service: name=btsync state=restarted
 
 - name: unpack btsync src
-  command: tar -xf {{ btsync_user_home }}/btsync.tgz -C {{ btsync_user_home }}
+  command: tar -xf {{ btsync_src_arch }} -C {{ btsync_user_home }}

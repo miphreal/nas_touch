@@ -9,7 +9,7 @@
   - update locales
 
 - name: update locales
-  command: {{ item }}
+  command: '{{ item }}'
   with_items:
   - update-locale
   - dpkg-reconfigure locales

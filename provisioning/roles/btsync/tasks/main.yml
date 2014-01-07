@@ -3,32 +3,45 @@
   group: name={{ btsync_group }} state=present
 
 - name: Register {{ btsync_user }} user
-  user: name={{ btsync_user }} shell=/usr/sbin/nologin system=no
+  user: name={{ btsync_user }} groups={{ btsync_user_groups }} shell=/usr/sbin/nologin system=no
 
 - name: Init btsync home folder
   file: path={{ btsync_user_home }} state=directory owner={{ btsync_user }} group={{ btsync_group }} mode=755
 
 - name: Download btsync
-  get_url: url={{ btsync_src }} dest={{ btsync_user_home }}/btsync-src.tar.gz owner={{ btsync_user }} group={{ btsync_group }} mode=666
+  get_url: url={{ btsync_src }} dest={{ btsync_src_arch }} owner={{ btsync_user }} group={{ btsync_group }} mode=666
   notify:
   - unpack btsync src
 
 - meta: flush_handlers
 
 - name: Create symlink
-  file: src={{ btsync_user_home }}/btsync dest=/usr/local/bin/btsync state=link owner=root group=root mode=775
+  file: src={{ btsync_bin }} dest=/usr/local/bin/{{ btsync_name }} state=link owner=root group=root mode=775
 
 - name: Copy init.d script
-  template: src=btsync.init.d.j2 dest=/etc/init.d/btsync mode=775
+  template: src=btsync.init.d.j2 dest=/etc/init.d/{{ btsync_name }} mode=775
+  notify:
+  - restart btsync
 
 - name: Copy init.d config
-  template: src=btsync.default.j2 dest=/etc/default/btsync
+  template: src=btsync.default.j2 dest=/etc/default/{{ btsync_name }} owner={{ btsync_user }} group={{ btsync_group }} mode=660
+  notify:
+  - restart btsync
 
-- name: Init daemon config directory
-  file: path=/etc/btsync/ state=directory
+- name: Copy btsync config
+  template: src=btsync.conf.j2 dest={{ btsync_conf }} owner={{ btsync_user }} group={{ btsync_group }} mode=664
+  notify:
+  - restart btsync
 
-- name: Copy btsync configs
-  template: src=configs/{{ item.config_src }}.conf.j2 dest=/etc/btsync/{{ item.instance_name }}.conf mode=770
-  with_items: btsync_instances
+- name: Check attributes of btsync bin
+  file: path={{ btsync_bin }} owner={{ btsync_user }} group={{ btsync_group }} mode=775
+  notify:
+  - restart btsync
 
-- service: name=btsync state=started enabled=yes
+- name: Check attributes of btsync log
+  file: path={{ btsync_log }} owner={{ btsync_user }} group={{ btsync_group }} mode=644 state=touch
+  notify:
+  - restart btsync
+
+- name: Start btsync
+  service: name=btsync state=started enabled=yes
