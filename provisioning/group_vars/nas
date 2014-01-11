@@ -34,7 +34,6 @@ nas_data_folders:
 nas_public_folders:
 - public
 - public/torrents
-- public/auto-add-torrents
 
 # DLNA config
 minidlna_web_port: 8801
