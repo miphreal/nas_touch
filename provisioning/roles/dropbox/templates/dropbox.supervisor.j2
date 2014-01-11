@@ -1,0 +1,6 @@
+[program:{{ dropbox_name }}]
+process_name = {{ dropbox_name }}
+command = {{ dropbox_bin }}
+user = {{ dropbox_user }}
+directory = {{ dropbox_user_home }}
+autostart = true

@@ -9,6 +9,9 @@
   - deluge-torrent
   - deluge-webui
 
+- name: Register {{ deluge_user }} user
+  user: name={{ deluge_user }} groups={{ deluge_user_groups }} shell=/usr/sbin/nologin system=no
+
 - name: Initilize user
   user: name={{ deluge_user }} home={{ deluge_user_home }} system=yes state=present
 

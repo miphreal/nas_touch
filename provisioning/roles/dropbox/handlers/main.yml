@@ -1,0 +1,11 @@
+---
+- name: restart dropbox
+  supervisorctl: name=dropbox state=restarted
+
+- name: restart supervisor
+  service: name=supervisor state=restarted
+  notify:
+  - restart dropbox
+
+- name: unpack dropbox src
+  command: tar -xf {{ dropbox_src_arch }} -C {{ dropbox_user_home }}

@@ -1,9 +1,10 @@
 Desired soft:
-  - BitTorrent Sync
+  + BitTorrent Sync
   + Deluge + web ui
   + Samba
   + minidlna
-  - Dropbox
+  + Dropbox
   - XMPP/Email notification
   - udpxy or ?
   - app server
+  - new relic

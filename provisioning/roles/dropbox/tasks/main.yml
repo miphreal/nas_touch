@@ -1,0 +1,39 @@
+---
+- name: Register {{ dropbox_user }} user
+  user: name={{ dropbox_user }} groups={{ dropbox_user_groups }} system=no home={{ dropbox_user_home }}
+
+- name: Init dropbox home folder
+  file: path={{ dropbox_user_home }} state=directory owner={{ dropbox_user }} group={{ dropbox_group }} mode=755
+
+- name: Download dropbox
+  get_url: url={{ dropbox_src }} dest={{ dropbox_src_arch }} owner={{ dropbox_user }} group={{ dropbox_group }} mode=666
+  notify:
+  - unpack dropbox src
+
+- name: Downlowd dropbox control
+  get_url: url={{ dropbox_control }} dest={{ dropbox_user_home }}/dropboxctl owner={{ dropbox_user }} group={{ dropbox_group }} mode=775
+
+- meta: flush_handlers
+
+- name: Create symlink (dropbox)
+  file: src={{ dropbox_bin }} dest=/usr/local/bin/{{ dropbox_name }} state=link owner=root group=root mode=775
+
+- name: Create symlink (dropboxctl)
+  file: src={{ dropbox_user_home }}/dropboxctl dest=/usr/local/bin/dropboxctl state=link owner=root group=root mode=775
+
+- name: Create dropbox-files folder
+  file: path={{ dropbox_folder }} state=directory owner={{ dropbox_user }} group={{ dropbox_group }} mode=775
+
+- name: Create Dropbox folder
+  file: path={{ dropbox_folder }} state=directory owner={{ dropbox_user }} group={{ dropbox_group }} mode=775
+
+- name: Create symlink ~/Dropbox -> {{ dropbox_folder }}
+  file: src={{ dropbox_folder }} dest={{ dropbox_user_home }}/Dropbox state=link owner={{ dropbox_user }} group={{ dropbox_group }} mode=775
+
+- name: Copy supervisor config
+  template: src=dropbox.supervisor.j2 dest=/etc/supervisor/conf.d/{{ dropbox_name }}.conf
+  notify:
+  - restart supervisor
+
+- name: Start dropbox
+  supervisorctl: name={{ dropbox_name }} state=started

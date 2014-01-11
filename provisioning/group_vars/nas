@@ -48,8 +48,9 @@ minidlna_media:
 minidlna_notify_interval: 60
 
 # BitTorrent config
+deluge_user_groups: '{{ nas_users.0.name }},{{ nas_public_users.0.name }}'
 deluge_autoadd_enable: 'true'
-deluge_autoadd_location: '{{ nas_data_dir }}/public/auto-add-torrents/'
+deluge_autoadd_location: '{{ dropbox_folder }}/sys/nas/new-torrents/'
 deluge_download_location: '{{ nas_data_dir }}/.incomplete/'
 deluge_move_completed_path: '{{ nas_data_dir }}/public/torrents/'
 deluge_web_port: 8802
@@ -68,6 +69,12 @@ samba_shares:
 - name: public
   path: '{{ nas_data_dir }}/public/'
   read_only: 'no'
+  create_mask: "0777"
+  directory_mask: "0777"
+  write_list: '@{{ nas_public_users.0.name }} {{ samba_default_write_list }}'
+
+- name: sync
+  path: '{{ nas_data_dir }}/sync/'
   create_mask: "0777"
   directory_mask: "0777"
   write_list: '@{{ nas_public_users.0.name }} {{ samba_default_write_list }}'
@@ -93,3 +100,7 @@ btsync_web_port: 8803
 btsync_web_login: '{{ nas_users.0.name }}'
 btsync_web_password: 'btsync'
 btsync_user_groups: '{{ nas_users.0.name }},{{ nas_public_users.0.name }}'
+
+# dropbox config
+dropbox_user_groups: '{{ nas_users.0.name }},{{ nas_public_users.0.name }}'
+dropbox_folder: '{{ nas_data_dir }}/.daemons/dropbox-files'

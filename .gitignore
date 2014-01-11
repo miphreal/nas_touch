@@ -11,4 +11,5 @@ static/*
 .idea
 
 .vagrant
+.python-version
 credentials

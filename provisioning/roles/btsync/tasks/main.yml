@@ -38,10 +38,5 @@
   notify:
   - restart btsync
 
-- name: Check attributes of btsync log
-  file: path={{ btsync_log }} owner={{ btsync_user }} group={{ btsync_group }} mode=644 state=touch
-  notify:
-  - restart btsync
-
 - name: Start btsync
   service: name=btsync state=started enabled=yes

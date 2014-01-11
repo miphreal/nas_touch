@@ -1,0 +1,13 @@
+---
+dropbox_src: https://www.dropbox.com/download?plat=lnx.x86
+dropbox_control: https://www.dropbox.com/download?dl=packages/dropbox.py
+
+dropbox_user: dropbox
+dropbox_group: '{{ dropbox_user }}'
+dropbox_user_groups: nogroup
+dropbox_user_home: /var/lib/dropbox
+dropbox_folder: '{{ dropbox_user_home }}/dropbox-files'
+dropbox_src_arch: '{{ dropbox_user_home }}/dropbox-src.tar.gz'
+
+dropbox_name: dropbox
+dropbox_bin: '{{ dropbox_user_home }}/.dropbox-dist/dropbox'

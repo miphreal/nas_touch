@@ -11,6 +11,7 @@
   - python-pip
   - python-virtualenv
   - python-pycurl
+  - supervisor
 
 - name: Increase fs.inotify.max_user_watches value
   sysctl: name=fs.inotify.max_user_watches value={{ max_user_watches }} state=present

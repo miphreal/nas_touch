@@ -1,6 +1,7 @@
 ---
 deluge_user: deluge
 deluge_group: deluge
+deluge_user_groups: nogroup
 deluge_user_home: /var/lib/deluge
 
 deluge_daemon_log: /var/log/deluge/daemon/warning.log
