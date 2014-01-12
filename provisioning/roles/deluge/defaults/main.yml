@@ -26,9 +26,10 @@ deluge_copy_torrent_file: false
 
 deluge_stop_seed_at_ratio: true
 deluge_seed_time_limit: 180
-deluge_stop_seed_ratio: 0.5
+deluge_stop_seed_ratio: 3.0
 deluge_seed_time_ratio_limit: 3.0
 deluge_share_ratio_limit: 2.0
+deluge_allow_remote: 'true'
 
 deluge_upnp: true
 deluge_dht: true
@@ -51,6 +52,9 @@ deluge_cache_expiry: 60
 deluge_auto_managed: true
 deluge_prioritize_first_last_pieces: true
 deluge_max_half_open_connections: 100
+
+deluge_client_user: deluge
+deluge_client_pass: deluge
 
 # Web UI
 deluge_web_port: 8112

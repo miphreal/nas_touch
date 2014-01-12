@@ -53,6 +53,8 @@ deluge_autoadd_location: '{{ dropbox_folder }}/sys/nas/new-torrents/'
 deluge_download_location: '{{ nas_data_dir }}/.incomplete/'
 deluge_move_completed_path: '{{ nas_data_dir }}/public/torrents/'
 deluge_web_port: 8802
+deluge_client_user: '{{ nas_users.0.name }}'
+deluge_client_pass: '{{ nas_users.0.name }}%)'
 
 # Samba config:
 samba_guest_account: '{{ nas_public_users.0.name }}'
