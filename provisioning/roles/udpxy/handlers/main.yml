@@ -1,0 +1,14 @@
+---
+- name: restart udpxy
+  supervisorctl: name=udpxy state=restarted
+
+- name: restart supervisor
+  service: name=supervisor state=restarted
+  notify:
+  - restart udpxy
+
+- name: unpack udpxy src
+  command: tar -xf {{ udpxy_src_arch }} -C {{ udpxy_user_home }}
+
+- name: make udpxy
+  shell: cd {{ udpxy_src_folder }} && make

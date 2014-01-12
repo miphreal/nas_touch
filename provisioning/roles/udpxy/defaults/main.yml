@@ -1,0 +1,35 @@
+---
+udpxy_src: http://www.udpxy.com/download/1_23/udpxy.1.0.23-9-prod.tar.gz
+
+udpxy_user: udpxy
+udpxy_group: '{{ udpxy_user }}'
+udpxy_user_groups: nogroup
+udpxy_user_home: /var/lib/udpxy
+udpxy_src_arch: '{{ udpxy_user_home }}/udpxy.tar.gz'
+
+udpxy_name: udpxy
+udpxy_src_folder: '{{ udpxy_user_home }}/udpxy-1.0.23-9'
+udpxy_bin: '{{ udpxy_src_folder }}/udpxy'
+
+#usage: ./udpxy [-vTS] [-a listenaddr] -p port [-m mcast_ifc_addr] [-c clients] [-l logfile] [-B sizeK] [-n nice_incr]
+#	-v : enable verbose output [default = disabled]
+#	-S : enable client statistics [default = disabled]
+#	-T : do NOT run as a daemon [default = daemon if root]
+#	-a : (IPv4) address/interface to listen on [default = 0.0.0.0]
+#	-p : port to listen on
+#	-m : (IPv4) address/interface of (multicast) source [default = 0.0.0.0]
+#	-c : max clients to serve [default = 3, max = 5000]
+#	-l : log output to file [default = stderr]
+#	-B : buffer size (65536, 32Kb, 1Mb) for inbound (multicast) data [default = 2048 bytes]
+#	-R : maximum messages to store in buffer (-1 = all) [default = 1]
+#	-H : maximum time (sec) to hold data in buffer (-1 = unlimited) [default = 1]
+#	-n : nice value increment [default = 0]
+#	-M : periodically renew multicast subscription (skip if 0 sec) [default = 0 sec]
+udpxy_log: /var/log/udpxy.log
+udpxy_port: 4022
+udpxy_max_clients: 10
+udpxy_buffer: 2Mb
+udpxy_max_buff_messages: 2
+udpxy_max_buff_time: 2
+udpxy_renew_multicast_time: 60
+udpxy_args: '-vTS -a {{ ansible_default_ipv4.address }} -p {{ udpxy_port }} -m {{ ansible_default_ipv4.address }} -c {{ udpxy_max_clients }} -l {{ udpxy_log }} -B {{ udpxy_buffer }} -R {{ udpxy_max_buff_messages }} -H {{ udpxy_max_buff_time }} -M {{ udpxy_renew_multicast_time }}'

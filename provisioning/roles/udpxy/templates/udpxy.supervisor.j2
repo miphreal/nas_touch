@@ -1,0 +1,6 @@
+[program:{{ udpxy_name }}]
+process_name = {{ udpxy_name }}
+command = {{ udpxy_bin }} {{ udpxy_args }}
+user = {{ udpxy_user }}
+directory = {{ udpxy_user_home }}
+autostart = true

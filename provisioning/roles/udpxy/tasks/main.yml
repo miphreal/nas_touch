@@ -1,0 +1,30 @@
+---
+- name: Register {{ udpxy_user }} user
+  user: name={{ udpxy_user }} groups={{ udpxy_user_groups }} system=no home={{ udpxy_user_home }}
+
+- name: Init udpxy home folder
+  file: path={{ udpxy_user_home }} state=directory owner={{ udpxy_user }} group={{ udpxy_group }} mode=755
+
+- name: Download udpxy
+  get_url: url={{ udpxy_src }} dest={{ udpxy_src_arch }} owner={{ udpxy_user }} group={{ udpxy_group }} mode=666
+  notify:
+  - unpack udpxy src
+  - make udpxy
+
+- meta: flush_handlers
+
+- name: Create symlink (udpxy)
+  file: src={{ udpxy_bin }} dest=/usr/local/bin/{{ udpxy_name }} state=link owner=root group=root mode=775
+
+- name: Log file attributes
+  file: path={{ udpxy_log }} state=touch  owner={{ udpxy_user }} group={{ udpxy_group }} mode=664
+
+- name: Copy supervisor config
+  template: src=udpxy.supervisor.j2 dest=/etc/supervisor/conf.d/{{ udpxy_name }}.conf
+  notify:
+  - restart supervisor
+
+- meta: flush_handlers
+
+- name: Start udpxy
+  supervisorctl: name={{ udpxy_name }} state=started

@@ -12,6 +12,7 @@
   - python-virtualenv
   - python-pycurl
   - supervisor
+  - build-essential
 
 - name: Increase fs.inotify.max_user_watches value
   sysctl: name=fs.inotify.max_user_watches value={{ max_user_watches }} state=present
